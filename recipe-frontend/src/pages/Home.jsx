@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import RecipeCard from "../components/RecipeCard";
 import RecipeModal from "../components/RecipeModal";
 import api from "../api";
+import Footer from "../components/Footer";
+
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -23,25 +25,34 @@ export default function Home() {
     }
   };
 
-  useEffect(() => { fetchRecipes(); }, []);
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
+  // Hero image: Chef garnishing English food
+  const heroImage =
+    "https://png.pngtree.com/thumb_back/fw800/background/20251008/pngtree-professional-chef-garnishing-dish-in-modern-restaurant-kitchen-image_19804215.webp";
 
   return (
     <>
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center text-center text-white"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1950&q=80')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 space-y-2 sm:space-y-4 px-4">
-          <h1 className="text-3xl sm:text-5xl font-serif font-bold">Discover Delicious Recipes</h1>
-          <p className="text-sm sm:text-lg">Explore, search, and savor our curated recipes.</p>
+      <section className="relative w-full min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-center justify-center">
+        <img
+          src={heroImage}
+          alt="Chef garnishing English food"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <div className="text-center px-4">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-bold text-white">
+              Discover Delicious Recipes
+            </h1>
+            <p className="text-sm sm:text-lg md:text-xl text-white mt-4">
+              Explore, search, and savor our curated English dishes.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -49,7 +60,10 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 sm:py-12">
         <input
           value={q}
-          onChange={(e) => { setQ(e.target.value); fetchRecipes(e.target.value); }}
+          onChange={(e) => {
+            setQ(e.target.value);
+            fetchRecipes(e.target.value);
+          }}
           placeholder="Search recipes..."
           className="w-full p-3 border rounded mb-6 focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
@@ -68,6 +82,9 @@ export default function Home() {
       </div>
 
       <RecipeModal recipe={openRecipe} onClose={() => setOpenRecipe(null)} />
+      <Footer />
+
     </>
+    
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import api from "../api";
 import RecipeForm from "../components/RecipeForm";
+import Footer from "../components/Footer";
 
 export default function AdminDashboard() {
   const [recipes, setRecipes] = useState([]);
@@ -126,6 +127,7 @@ export default function AdminDashboard() {
 
         </div>
       </div>
+      <Footer />
     </>
   );
 }

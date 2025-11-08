@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import api from "../api";
+import Footer from "../components/Footer";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -79,6 +80,7 @@ export default function AdminLogin() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

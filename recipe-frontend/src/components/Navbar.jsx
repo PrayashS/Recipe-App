@@ -17,7 +17,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link to="/" className="text-2xl font-bold text-amber-700">RecipeBox</Link>
-          <span className="text-sm text-gray-600">— simple, tasty recipes</span>
+          <span className="text-sm text-gray-600">— Kelsey House | Bar & Kitchen</span>
         </div>
 
         {/* Mobile menu toggle */}
