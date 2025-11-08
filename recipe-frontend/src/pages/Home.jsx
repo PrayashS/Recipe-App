@@ -10,19 +10,26 @@ export default function Home() {
   const [openRecipe, setOpenRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchRecipes = async (search="") => {
+  const fetchRecipes = async (search = "") => {
     setLoading(true);
     try {
       const res = await api.get("/api/recipes", { params: { q: search } });
-      setRecipes(res.data);
+      if (res.data.success && Array.isArray(res.data.recipes)) {
+        setRecipes(res.data.recipes); // <-- extract array from backend response
+      } else {
+        setRecipes([]); // fallback if response malformed
+      }
     } catch (err) {
       console.error(err);
+      setRecipes([]);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { fetchRecipes(); }, []);
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
 
   const onSearch = (e) => {
     const val = e.target.value;
@@ -40,14 +47,21 @@ export default function Home() {
         </header>
 
         <div className="mb-6">
-          <input value={q} onChange={onSearch} placeholder="Search recipes..." className="w-full p-3 border rounded" />
+          <input
+            value={q}
+            onChange={onSearch}
+            placeholder="Search recipes..."
+            className="w-full p-3 border rounded"
+          />
         </div>
 
         {loading ? (
           <div className="text-center text-gray-500">Loading...</div>
+        ) : recipes.length === 0 ? (
+          <div className="text-center text-gray-500">No recipes found.</div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recipes.map(r => (
+            {recipes.map((r) => (
               <RecipeCard key={r._id} recipe={r} onOpen={setOpenRecipe} />
             ))}
           </div>

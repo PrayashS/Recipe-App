@@ -2,10 +2,7 @@ import React from "react";
 
 export default function RecipeCard({ recipe, onOpen }) {
   return (
-    <div
-      className="bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden cursor-pointer"
-      onClick={() => onOpen(recipe)}
-    >
+    <div className="bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden cursor-pointer" onClick={()=>onOpen(recipe)}>
       {recipe.image ? (
         <img src={`${import.meta.env.VITE_API_BASE}${recipe.image}`} alt={recipe.title} className="w-full h-44 object-cover" />
       ) : (
