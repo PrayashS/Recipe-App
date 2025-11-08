@@ -17,13 +17,16 @@ const upload = multer({ storage });
 router.get("/", async (req, res) => {
   try {
     const q = req.query.q || "";
-    const recipes = await Recipe.find({ title: { $regex: q, $options: "i" } }).sort({ createdAt: -1 });
-    res.json({ success: true, recipes });
+    const recipes = await Recipe.find({ title: { $regex: q, $options: "i" } })
+                                .sort({ createdAt: -1 });
+    // Force array
+    res.json(Array.isArray(recipes) ? recipes : []);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // POST recipe (admin)
 router.post("/", auth, upload.single("image"), async (req, res) => {
